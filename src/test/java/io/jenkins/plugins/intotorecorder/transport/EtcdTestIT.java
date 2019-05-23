@@ -50,9 +50,9 @@ public class EtcdTestIT extends TestCase {
     private URI uri;
 
 	public void setUp() throws Exception {
-        String port = System.getenv("ETCD_SERVER_PORT");
-        this.uri = new URI("http://localhost:" + port);
-        this.transport = new Etcd(uri);
+		String port = System.getenv("ETCD_SERVER_PORT");
+        uri = new URI("etcd://localhost:" + port);
+        this.transport = (Etcd) Transport.TransportFactory.transportForURI(uri);
         this.key = RSAKey.read(keyFilepath);
     }
 
@@ -71,7 +71,7 @@ public class EtcdTestIT extends TestCase {
          */
         HttpClient client = new DefaultHttpClient();
         HttpGet get = new HttpGet(
-            this.uri.toString() + "/v2/keys/" + link.getFullName());
+            this.transport.uri.toString() + "/v2/keys/" + link.getFullName());
 
         ResponseHandler<Response> handler = new ResponseHandler<Response>() {
             

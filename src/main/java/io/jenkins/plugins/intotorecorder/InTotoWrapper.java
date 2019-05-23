@@ -386,14 +386,6 @@ public class InTotoWrapper extends SimpleBuildWrapper {
                                       InterruptedException {
 
             this.link.setProducts(InTotoWrapper.collectArtifacts(workspace));
-
-            Transport transport = null;
-
-            /* we ignore the error as it'll be handled in the next if */
-            try {
-                transport = Transport.TransportFactory.transportForURI(new URI(transportURL));
-            } catch (URISyntaxException | RuntimeException e) {}
-
             if (this.key != null) {
                 this.link.sign(key);
             } else if (this.keyPath != null) {
@@ -402,14 +394,18 @@ public class InTotoWrapper extends SimpleBuildWrapper {
                 listener.getLogger().println("[in-toto] Warning! no keypath specified. Not signing...");
             }
 
-            if (transportURL.length() == 0 || transport == null) {
-                listener.getLogger().println("[in-toto] No transport specified " +
+            URI uri = null;
+
+            try {
+				uri = new URI(transportURL);
+			} catch (URISyntaxException e1) {
+				listener.getLogger().println("[in-toto] No transport specified " +
                         "(or transport not supported)" +
                         " Dumping metadata to local directory");
-            } else {
-                listener.getLogger().println("[in-toto] Dumping metadata to: " + transport);
-                transport.submit(this.link);
-            }
+			}
+            Transport transport = Transport.TransportFactory.transportForURI(uri);
+            listener.getLogger().println("[in-toto] Dumping metadata to: " + transport);
+            transport.submit(this.link);
         }
 
         /* Private method that will help me publish metadata in a transport

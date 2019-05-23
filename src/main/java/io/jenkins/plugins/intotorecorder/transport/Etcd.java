@@ -6,6 +6,8 @@ package io.jenkins.plugins.intotorecorder.transport;
 import java.io.IOException;
 
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.concurrent.CompletableFuture;
 
 import io.github.in_toto.models.Link;
 
@@ -26,12 +28,18 @@ public class Etcd extends Transport {
     URI uri;
 
     public Etcd(URI uri) {
-        this.uri = uri;
+    	// change protocol etcd -> http
+    	try {
+			this.uri = new URI("http", null, uri.getHost(), uri.getPort(), null, null, null);
+		} catch (URISyntaxException e) {
+			// already checked in Transport
+		}
     }
 
     public void submit(Link link) {
         /* FIXME: this is how we *should* handle connectivity but Jetcd is failing
          * I'll defer this to a further checkpoint in the jetcd implementation
+         * probably fails because it uses v3 while most servers are v2
         Client client = Client.builder()
                 .endpoints(this.uri.toString()).build();
         client.getKVClient().put(
@@ -50,10 +58,16 @@ public class Etcd extends Transport {
                     ByteArrayContent.fromString("application/x-www-form-urlencoded",
                         "value=" + link.dumpString()));
 
-            HttpResponse response = request.execute();
+            request.execute();
         } catch (IOException e) {
             throw new RuntimeException("Couldn't serialize link: " +
                     link.getFullName() + ".Error was: " + e.toString());
         }
     }
+
+	@Override
+	public String toString() {
+		return "Etcd [uri=" + uri + "]";
+	}
+    
 }

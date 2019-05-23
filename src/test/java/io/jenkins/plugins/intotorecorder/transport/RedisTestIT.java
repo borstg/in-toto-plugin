@@ -47,11 +47,11 @@ public class RedisTestIT extends TestCase {
 	public void setUp() throws Exception {
         this.port = Integer.parseInt(System.getenv("REDIS_SERVER_PORT"));
         this.uri = new URI("redis://localhost:" + port);
-        this.transport = new Redis(uri);
+        this.transport = (Redis) Transport.TransportFactory.transportForURI(uri);
         this.key = RSAKey.read(keyFilepath);
     }
 
-	public void testEtcdStorage() throws Exception {
+	public void testRedisStorage() throws Exception {
 
         Link link = new Link(null, null, "step", null, null, null);
         link.sign(this.key);

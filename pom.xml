@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>3.4</version>
+    <version>3.43</version>
     <relativePath />
   </parent>
   <groupId>io.jenkins.plugins</groupId>
@@ -62,17 +62,13 @@
     <dependency>
       <groupId>com.google.http-client</groupId>
       <artifactId>google-http-client</artifactId>
-      <version>1.23.0</version>
+      <version>1.29.1</version>
     </dependency>
-    <!--
-      FIXME: this apparently requires a version of Guava that conflicts w
-      ith the one installed as a plugin base.
-    <dependency>
+	<dependency>
       <groupId>com.coreos</groupId>
       <artifactId>jetcd-core</artifactId>
       <version>0.0.2</version>
-    </dependency>
-    -->
+	</dependency>
     <dependency>
       <groupId>redis.clients</groupId>
       <artifactId>jedis</artifactId>
@@ -90,14 +86,13 @@
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>plain-credentials</artifactId>
       <version>1.1</version>
-    </dependency>
+    </dependency>    
   </dependencies>
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
         <configuration>
           <compilerArgs>
             <arg>-Xlint:all</arg>
