@@ -76,7 +76,7 @@ you'd specify `etcd://`. `https` and `http` are handled using a generic HTTP
 POST request with the link metadata as the body of the request. 
 
 You can easily extend transports by extending the abstract class `Transport` in
-the `io.jenkins.plugins.intotorecorder.transport` package. Discovery of new
+the `io.jenkins.plugins.in_toto.transport` package. Discovery of new
 handlers is not automatic (yet!) though.
 
 ## Limitations

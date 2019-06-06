@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <f:section title="${%In Toto Service Configuration}">
+        <f:entry field="hostname" title="${%hostname}">
+            <f:textbox/>
+        </f:entry>
+        <f:entry field="port" title="${%port}">
+            <f:textbox />
+        </f:entry>
+        <f:entry field="isSecure" title="${%Is secure}">
+            <f:checkbox checked="${instance.isSecure}"/>
+        </f:entry>
+    </f:section>
+</j:jelly>
