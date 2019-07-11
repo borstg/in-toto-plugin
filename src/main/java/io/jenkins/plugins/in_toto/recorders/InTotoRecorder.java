@@ -114,7 +114,7 @@ public class InTotoRecorder extends Recorder {
         this.cwd = build.getWorkspace();
         String  cwdStr;
         if (this.cwd != null) {
-            cwdStr = this.cwd.toString();
+            cwdStr = this.cwd.getRemote();
         } else {
             throw new RuntimeException("[in-toto] Cannot get the build workspace");
         }
@@ -128,8 +128,10 @@ public class InTotoRecorder extends Recorder {
 
     @Override
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) {
+    	
+    	listener.getLogger().println("[in-toto] Recording state after build ");
 
-        Metablock<Link> metablock = new Metablock<Link>(this.linkBuilder.addProduct(Arrays.asList(this.cwd.toString())).build(), null);
+        Metablock<Link> metablock = new Metablock<Link>(this.linkBuilder.addProduct(Arrays.asList(this.cwd.getRemote())).build(), null);
         
         if ( this.privateKeyCredentialId != null && this.privateKeyCredentialId.length() != 0 ) {
             listener.getLogger().println("[in-toto] Signing with credentials '"
