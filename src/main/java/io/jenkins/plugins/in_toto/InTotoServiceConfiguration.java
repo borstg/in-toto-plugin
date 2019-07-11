@@ -5,10 +5,16 @@ import hudson.util.FormValidation;
 import io.github.intoto.service.client.InTotoServiceLinkTransporter;
 import jenkins.model.GlobalConfiguration;
 
+import java.io.IOException;
+
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.QueryParameter;
+
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 @Extension
 public class InTotoServiceConfiguration extends GlobalConfiguration {
@@ -75,6 +81,16 @@ public class InTotoServiceConfiguration extends GlobalConfiguration {
         }
         return FormValidation.ok();
     }
+    
+	public FormValidation doValidateConnection(@QueryParameter String hostname, @QueryParameter int port,
+			@QueryParameter boolean secure) throws IOException {
+		String protocol = secure ? "https://" : "http://";
+		String url = protocol + hostname + ":" + port + "/api/service/status";
+		HttpRequest request = new NetHttpTransport().createRequestFactory().buildGetRequest(new GenericUrl(url));
+		HttpResponse response = request.execute();
+		System.out.println(response.parseAsString());
+		return FormValidation.ok("Your In Toto Service instance [%s] is alive!", url);
+	}
     
     public FormValidation doCheckPort(@QueryParameter int value) {
         if (value >= 0) {
