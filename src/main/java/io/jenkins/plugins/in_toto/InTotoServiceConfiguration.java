@@ -91,14 +91,22 @@ public class InTotoServiceConfiguration extends GlobalConfiguration {
 		System.out.println(response.parseAsString());
 		return FormValidation.ok("Your In Toto Service instance [%s] is alive!", url);
 	}
-    
-    public FormValidation doCheckPort(@QueryParameter int value) {
-        if (value >= 0) {
+	
+    public FormValidation doCheckPort(@QueryParameter String value) {
+    	if (StringUtils.isEmpty(value)) {
+            return FormValidation.warning("Please specify a port.");
+        }
+    	try {
+    		Integer.valueOf(value);
+    	} catch (NumberFormatException exc){
+    		return FormValidation.warning("[%s] is not a number.", value);
+    	}
+        if (port <= 0) {
             return FormValidation.warning("0 or negative port isn't allowed.");
         }
         return FormValidation.ok();
     }
-    
+	
     public InTotoServiceLinkTransporter getTranporter(String supplyChainId) {
     	if (hostname == null) {
     		return null;
