@@ -2,7 +2,8 @@ package io.jenkins.plugins.in_toto;
 
 import hudson.Extension;
 import hudson.util.FormValidation;
-import io.github.intoto.service.client.InTotoServiceLinkTransporter;
+import io.github.in_toto.models.Link;
+import io.github.in_toto.transporters.InTotoServiceTransporter;
 import jenkins.model.GlobalConfiguration;
 
 import java.io.IOException;
@@ -107,10 +108,10 @@ public class InTotoServiceConfiguration extends GlobalConfiguration {
         return FormValidation.ok();
     }
 	
-    public InTotoServiceLinkTransporter getTranporter(String supplyChainId) {
+    public InTotoServiceTransporter<Link> getTranporter(String supplyChainId) {
     	if (hostname == null) {
     		return null;
     	}
-    	return new InTotoServiceLinkTransporter(supplyChainId, this.hostname, this.port, this.secure);
+    	return new InTotoServiceTransporter<Link>(supplyChainId, this.hostname, this.port, this.secure);
     }
 }

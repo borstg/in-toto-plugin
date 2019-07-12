@@ -5,9 +5,9 @@ package io.jenkins.plugins.in_toto.recorders;
 
 import io.github.in_toto.models.Link;
 import io.github.in_toto.models.Link.LinkBuilder;
+import io.github.in_toto.transporters.Transporter;
 import io.jenkins.plugins.in_toto.InTotoServiceConfiguration;
 import io.github.in_toto.models.Metablock;
-import io.github.in_toto.models.LinkTransporter;
 import io.github.in_toto.models.Artifact;
 import io.github.in_toto.keys.Key;
 import io.github.in_toto.keys.RSAKey;
@@ -102,12 +102,6 @@ public class InTotoWrapper extends SimpleBuildWrapper {
      */
     public Key key;
 
-    /**
-     * The current working directory (to be recorded as context).
-     *
-     */
-    private FilePath cwd;
-
     @DataBoundConstructor
     public InTotoWrapper(String privateKeyCredentialId, String stepName, String supplyChainId)
     {
@@ -141,7 +135,6 @@ public class InTotoWrapper extends SimpleBuildWrapper {
                                EnvVars initialEnvironment)
                         throws IOException,
                                InterruptedException {
-        this.cwd = workspace;
 
         listener.getLogger().println("[in-toto] wrapping step ");
         listener.getLogger().println("[in-toto] using step name: " + this.stepName);
@@ -246,7 +239,7 @@ public class InTotoWrapper extends SimpleBuildWrapper {
             } else {
                 listener.getLogger().println("[in-toto] Warning! no key specified. Not signing...");
             }
-            LinkTransporter transport = InTotoServiceConfiguration.get().getTranporter(supplyChainId);
+            Transporter<Link> transport = InTotoServiceConfiguration.get().getTranporter(supplyChainId);
             listener.getLogger().println("[in-toto] Dumping metadata to: " + transport);
             transport.dump(metablock);
         }

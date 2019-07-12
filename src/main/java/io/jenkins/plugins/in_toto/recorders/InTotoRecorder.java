@@ -7,7 +7,7 @@ import io.github.in_toto.models.Link;
 import io.github.in_toto.models.Link.LinkBuilder;
 import io.jenkins.plugins.in_toto.InTotoServiceConfiguration;
 import io.github.in_toto.models.Metablock;
-import io.github.intoto.service.client.InTotoServiceLinkTransporter;
+import io.github.in_toto.transporters.InTotoServiceTransporter;
 import io.github.in_toto.keys.Key;
 import io.github.in_toto.keys.RSAKey;
 
@@ -84,7 +84,7 @@ public class InTotoRecorder extends Recorder {
      */
     private FilePath cwd;
     
-    private InTotoServiceLinkTransporter transport;
+    private InTotoServiceTransporter<Link> transport;
 
     @DataBoundConstructor
     public InTotoRecorder(String supplyChainId, String privateKeyCredentialId, String stepName)
