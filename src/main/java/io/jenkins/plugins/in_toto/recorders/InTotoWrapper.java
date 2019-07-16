@@ -145,7 +145,7 @@ public class InTotoWrapper extends SimpleBuildWrapper {
         }
         
         LinkBuilder linkBuilder = new LinkBuilder(this.stepName);
-        linkBuilder.addMaterial(Arrays.asList(workspace.getRemote()));
+        linkBuilder.addMaterial(Arrays.asList("")).setBasePath(workspace.getRemote());
 
         listener.getLogger().println("[in-toto] Dumping metadata... ");
 
@@ -232,7 +232,8 @@ public class InTotoWrapper extends SimpleBuildWrapper {
                                throws IOException,
                                       InterruptedException {
 
-            this.linkBuilder.addProduct(Arrays.asList("")).setBasePath(workspace.getRemote());
+            this.linkBuilder.addProduct(Arrays.asList(""))
+            	.setBasePath(workspace.getRemote());
             Metablock<Link> metablock = new Metablock<Link>(this.linkBuilder.build(), null);
             if (this.key != null) {
             	metablock.sign(key);

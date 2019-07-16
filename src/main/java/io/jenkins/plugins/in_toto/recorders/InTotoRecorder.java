@@ -122,7 +122,7 @@ public class InTotoRecorder extends Recorder {
         listener.getLogger().println("[in-toto] Recording state before build " + cwdStr);
         listener.getLogger().println("[in-toto] using step name: " + stepName);
 
-        this.linkBuilder = new LinkBuilder(this.stepName).addMaterial(Arrays.asList(cwdStr));
+        this.linkBuilder = new LinkBuilder(this.stepName).addMaterial(Arrays.asList("")).setBasePath(this.cwd.getRemote());
         return true;
     }
 
@@ -130,8 +130,10 @@ public class InTotoRecorder extends Recorder {
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) {
     	
     	listener.getLogger().println("[in-toto] Recording state after build ");
+    	
+    	Link link = this.linkBuilder.addProduct(Arrays.asList("")).setBasePath(this.cwd.getRemote()).build();
 
-        Metablock<Link> metablock = new Metablock<Link>(this.linkBuilder.addProduct(Arrays.asList(this.cwd.getRemote())).build(), null);
+        Metablock<Link> metablock = new Metablock<Link>(link, null);
         
         if ( this.privateKeyCredentialId != null && this.privateKeyCredentialId.length() != 0 ) {
             listener.getLogger().println("[in-toto] Signing with credentials '"
