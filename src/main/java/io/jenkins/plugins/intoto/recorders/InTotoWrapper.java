@@ -1,36 +1,24 @@
 /**
  *
  */
-package io.jenkins.plugins.in_toto.recorders;
+package io.jenkins.plugins.intoto.recorders;
 
 import io.github.in_toto.models.Link;
 import io.github.in_toto.models.Link.LinkBuilder;
 import io.github.in_toto.transporters.Transporter;
-import io.jenkins.plugins.in_toto.InTotoServiceConfiguration;
+import io.jenkins.plugins.intoto.InTotoServiceConfiguration;
 import io.github.in_toto.models.Metablock;
-import io.github.in_toto.models.Artifact;
 import io.github.in_toto.keys.Key;
 import io.github.in_toto.keys.RSAKey;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
 
 import hudson.Extension;
 import hudson.Launcher;
 import hudson.model.*;
 import hudson.tasks.BuildWrapperDescriptor;
-import hudson.tasks.BuildStepMonitor;
-import hudson.tasks.Publisher;
-import hudson.tasks.Recorder;
-import hudson.util.RunList;
 import hudson.FilePath;
 import hudson.EnvVars;
-import hudson.FilePath.FileCallable;
-import hudson.remoting.VirtualChannel;
 import hudson.security.ACL;
 
-import jenkins.MasterToSlaveFileCallable;
 import jenkins.model.Jenkins;
 
 import com.cloudbees.plugins.credentials.CredentialsProvider;
@@ -39,28 +27,16 @@ import com.cloudbees.plugins.credentials.domains.DomainRequirement;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
-import org.kohsuke.stapler.StaplerRequest;
 
 import org.jenkinsci.Symbol;
 
-import java.io.File;
 import java.io.Reader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Arrays;
 import java.util.Collections;
-import java.lang.InterruptedException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import jenkins.tasks.SimpleBuildWrapper;
-import jenkins.tasks.SimpleBuildWrapper.Context;
-import jenkins.tasks.SimpleBuildWrapper.Disposer;
 
 import org.jenkinsci.plugins.plaincredentials.FileCredentials;
 

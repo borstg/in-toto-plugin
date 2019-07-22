@@ -1,11 +1,11 @@
 /**
  *
  */
-package io.jenkins.plugins.in_toto.recorders;
+package io.jenkins.plugins.intoto.recorders;
 
 import io.github.in_toto.models.Link;
 import io.github.in_toto.models.Link.LinkBuilder;
-import io.jenkins.plugins.in_toto.InTotoServiceConfiguration;
+import io.jenkins.plugins.intoto.InTotoServiceConfiguration;
 import io.github.in_toto.models.Metablock;
 import io.github.in_toto.transporters.InTotoServiceTransporter;
 import io.github.in_toto.keys.Key;

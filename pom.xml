@@ -8,11 +8,11 @@
     <relativePath />
   </parent>
   <groupId>io.jenkins.plugins</groupId>
-  <artifactId>in-toto</artifactId>
+  <artifactId>intoto</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
   <properties>
-    <jenkins.version>2.176.1</jenkins.version>
+    <jenkins.version>2.176.2</jenkins.version>
     <java.level>8</java.level>
   </properties>
   <name>in-toto provenance agent</name>
