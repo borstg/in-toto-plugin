@@ -1,4 +1,4 @@
-package io.jenkins.plugins.intoto;
+package io.jenkins.plugins.in_toto;
 
 import hudson.Extension;
 import hudson.util.FormValidation;
