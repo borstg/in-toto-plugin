@@ -39,25 +39,11 @@
     <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
     <tag>HEAD</tag>
   </scm>
-  <distributionManagement>
-    <snapshotRepository>
-            <uniqueVersion>true</uniqueVersion>
-            <id>in-toto</id>
-            <name>in-toto snapshots</name>
-            <url>${distman.jenkinssnapshoturl}</url>
-        </snapshotRepository>
-        <repository>
-            <uniqueVersion>true</uniqueVersion>
-            <id>in-toto</id>
-            <name>in-toto snapshots</name>
-            <url>${distman.jenkinsreleaseurl}</url>
-        </repository>
-    </distributionManagement>
   <repositories>
-    <repository>
-      <id>repo.jenkins-ci.org</id>
-      <url>https://repo.jenkins-ci.org/public/</url>
-      </repository>
+  <repository>
+    <id>repo.jenkins-ci.org</id>
+    <url>https://repo.jenkins-ci.org/public/</url>
+  </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>
@@ -101,7 +87,21 @@
         <version>5.4.2</version>
         <scope>test</scope>
     </dependency>
-  </dependencies>
+  </dependencies>  
+    <distributionManagement>
+      <snapshotRepository>
+        <uniqueVersion>true</uniqueVersion>
+        <id>in-toto</id>
+        <name>in-toto snapshots</name>
+        <url>${distman.jenkinssnapshoturl}</url>
+     </snapshotRepository>
+     <repository>
+       <uniqueVersion>true</uniqueVersion>
+       <id>in-toto</id>
+       <name>in-toto snapshots</name>
+       <url>${distman.jenkinsreleaseurl}</url>
+    </repository>
+  </distributionManagement>
   <build>
     <plugins>
       <plugin>
